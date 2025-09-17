@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:islamy_app_c16_7pm/common/app_consts.dart';
 import 'package:islamy_app_c16_7pm/common/common_decorations.dart';
+import 'package:islamy_app_c16_7pm/tabs/hadeeth_tab/hadeeth_tab.dart';
 import 'package:islamy_app_c16_7pm/tabs/quran_tab/quran_tab.dart';
 
 class MainLayer extends StatefulWidget {
+  static const String routeName = '/mainLayer';
+
   const MainLayer({super.key});
 
   @override
@@ -15,9 +18,7 @@ class _MainLayerState extends State<MainLayer> {
   int currentTab = 0;
   List<Widget> tabs = [
     QuranTab(),
-    Container(
-      color: Colors.red,
-    ),
+    HadeethTab(),
     Container(
       color: Colors.white,
     ),

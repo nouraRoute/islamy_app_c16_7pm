@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:islamy_app_c16_7pm/common/app_consts.dart';
+import 'package:islamy_app_c16_7pm/models/sura_model.dart';
+import 'package:islamy_app_c16_7pm/tabs/quran_tab/sura_details_page.dart';
 import 'package:islamy_app_c16_7pm/theme/app_colors.dart';
 
 class SurasListView extends StatelessWidget {
@@ -22,55 +24,61 @@ class SurasListView extends StatelessWidget {
           ),
         ),
         ListView.separated(
-          itemCount: 10,
+          itemCount: SuraModel.surasList.length,
           shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) => ListTile(
-            leading: Stack(
-              alignment: Alignment.center,
-              children: [
-                Icon(
-                  Icons.brightness_5,
-                  size: 55,
-                  color: Colors.white,
-                ),
-                Text(
-                  (index + 1).toString(),
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontFamily: AppConsts.fontFamily),
-                )
-              ],
-            ),
-            title: Text(
-              'Al-Fatiha',
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontFamily: AppConsts.fontFamily),
-            ),
-            subtitle: Text(
-              '7 Verses',
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontFamily: AppConsts.fontFamily),
-            ),
-            trailing: Text(
-              'الفاتحه',
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontFamily: AppConsts.fontFamily),
-            ),
-          ),
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            SuraModel currantSura = SuraModel.surasList[index];
+
+            return ListTile(
+              onTap: () => Navigator.of(context)
+                  .pushNamed(SuraDetailsPage.routeName, arguments: currantSura),
+              leading: Stack(
+                alignment: Alignment.center,
+                children: [
+                  const Icon(
+                    Icons.brightness_5,
+                    size: 55,
+                    color: Colors.white,
+                  ),
+                  Text(
+                    currantSura.index.toString(),
+                    style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontFamily: AppConsts.fontFamily),
+                  )
+                ],
+              ),
+              title: Text(
+                currantSura.enName,
+                style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontFamily: AppConsts.fontFamily),
+              ),
+              subtitle: Text(
+                '${currantSura.versesCount} Verses',
+                style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontFamily: AppConsts.fontFamily),
+              ),
+              trailing: Text(
+                currantSura.arName,
+                style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontFamily: AppConsts.fontFamily),
+              ),
+            );
+          },
           separatorBuilder: (BuildContext context, int index) {
-            return Divider(
+            return const Divider(
               endIndent: 65,
               indent: 65,
               color: AppColors.goldColor,
